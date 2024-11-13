@@ -3,10 +3,10 @@ typedef struct
     int CodeOp;
     char NomJeu[25];
     char Param[200];
-    int flag;
+    int Flag;
 } DemandeOperation;
 
 typedef struct {
     char NomJeu[25] ;
-    char *code;
+    char *Code;
 } Jeu;
