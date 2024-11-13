@@ -9,4 +9,4 @@ typedef struct
 typedef struct {
     char NomJeu[25] ;
     char *code;
-} Jeu ;
+} Jeu;
