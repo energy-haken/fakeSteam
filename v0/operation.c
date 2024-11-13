@@ -5,7 +5,7 @@
 
 Jeu *jeux = NULL;
 
-int execute_demande(Jeu * jeux, DemandeOperation op) {
+int execute_demande(DemandeOperation op) {
     if (jeux == NULL){
         jeux = malloc(20 * sizeof(Jeu));
         memset(jeux, 0, 20* sizeof(Jeu));
