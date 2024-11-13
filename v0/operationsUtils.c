@@ -16,5 +16,6 @@ int list(Jeu jeux[]){
     for(int i = 0 ; i < count(jeux) ; i++){
         printf("%s \n", jeux[i].NomJeu  );
     }
+    return count(jeux) ;
 }
 
