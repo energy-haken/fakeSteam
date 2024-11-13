@@ -10,7 +10,7 @@ int exists(Jeu jeux[], char nom[]);
 int list(Jeu jeux[]);
 
 //3
-int download(Jeu jeux[], char url[]);
+int download(Jeu jeux[], char nom[], char url[]);
 
 //4
 int remove(Jeu jeux[], char nom[]);
