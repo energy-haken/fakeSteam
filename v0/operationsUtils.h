@@ -1,4 +1,4 @@
-#include "structures.h";
+#include "structures.h"
 
 int count(Jeu jeux[]);
 Jeu* getGameByName(Jeu jeux[], char nom[]);
@@ -7,18 +7,17 @@ Jeu* getGameByName(Jeu jeux[], char nom[]);
 int exists(Jeu jeux[], char nom[]);
 
 //2
-int list(Jeu jeux[]);
+int list(Jeu jeux[], int nb_jeux);
 
 //3
-int download(Jeu jeux[], char nom[], char url[]);
+int download(Jeu jeux[], int * nb_jeux, char nom[], char url[]);
 
 //4
-int remove(Jeu jeux[], char nom[]);
+int delete(Jeu jeux[], char nom[]);
 
 //5
 void simulate(Jeu jeux[], char nom[]);
 
 //5
 void execute(Jeu jeux[], char nom[]);
-
 

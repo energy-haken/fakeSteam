@@ -1,10 +1,10 @@
 #include "operation.h"
-#include "operationsUtils.h"
 #include <stddef.h>
 #include <stdlib.h>
+#include <string.h>
 
 Jeu *jeux = NULL;
-
+int nb_jeux = 0;
 int execute_demande(DemandeOperation op) {
     if (jeux == NULL){
         jeux = malloc(20 * sizeof(Jeu));
@@ -12,18 +12,19 @@ int execute_demande(DemandeOperation op) {
     }
     switch (op.CodeOp) {
         case 1: 
-            return exists(jeux, op.NomJeu);
+            //return exists(jeux, op.NomJeu);
         case 2:
-            return list(jeux);
+            return list(jeux, nb_jeux);
         case 3:
-            return download(jeux, op.NomJeu, op.Param);
+            return download(jeux, &nb_jeux, op.NomJeu, op.Param);
         case 4:
-            return remove(jeux, op.NomJeu);
+            //return delete(jeux, op.NomJeu);
         case 5:
-            simulate(jeux, op.NomJeu);
+            //simulate(jeux, op.NomJeu);
             return 0;
         case 6:
-            execute(jeux, op.NomJeu);
+            //execute(jeux, op.NomJeu);
             return 0;
     }
+    return -5;
 }
