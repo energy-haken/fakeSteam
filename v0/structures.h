@@ -9,6 +9,6 @@ typedef struct
 } DemandeOperation;
 
 typedef struct {
-    char NomJeu[25] ;
-    char *Code;
+    char NomJeu[25];
+    char Code[1001];
 } Jeu;

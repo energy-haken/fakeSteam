@@ -12,13 +12,13 @@ int execute_demande(DemandeOperation op) {
     }
     switch (op.CodeOp) {
         case 1: 
-            //return exists(jeux, op.NomJeu);
+            return exists(jeux, nb_jeux, op.NomJeu);
         case 2:
             return list(jeux, nb_jeux);
         case 3:
             return download(jeux, &nb_jeux, op.NomJeu, op.Param);
         case 4:
-            //return delete(jeux, op.NomJeu);
+            return delete(jeux, &nb_jeux, op.NomJeu);
         case 5:
             //simulate(jeux, op.NomJeu);
             return 0;
