@@ -20,7 +20,7 @@ int execute_demande(DemandeOperation op) {
         case 4:
             return delete(jeux, &nb_jeux, op.NomJeu);
         case 5:
-            //simulate(jeux, op.NomJeu);
+            simulate(jeux, nb_jeux, op.NomJeu);
             return 0;
         case 6:
             //execute(jeux, op.NomJeu);

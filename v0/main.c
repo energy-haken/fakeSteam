@@ -2,9 +2,11 @@
 #include "structures.h"
 #include "operation.h"
 #include <string.h>
-
+#include <stdlib.h>
+#include <time.h>
 
 int main() {
+    srand(time(NULL)); 
     printf("coucou\n");
     DemandeOperation dlOp;
     dlOp.CodeOp = 3;
@@ -20,6 +22,11 @@ int main() {
     existsOp.CodeOp = 1;
     strcpy(existsOp.NomJeu, "GancarskiSimulator3000");
     printf("exists ? %d\n", execute_demande(existsOp));
+
+    DemandeOperation simualteOp;
+    simualteOp.CodeOp = 5;
+    strcpy(simualteOp.NomJeu, "GancarskiSimulator3000");
+    execute_demande(simualteOp);
 
     DemandeOperation deleteOp;
     deleteOp.CodeOp = 4;
