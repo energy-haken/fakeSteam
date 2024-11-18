@@ -4,7 +4,7 @@ int count(Jeu jeux[]);
 Jeu* getGameByName(Jeu jeux[], char nom[]);
 
 //1
-int exists(Jeu jeux[], char nom[]);
+int exists(Jeu jeux[], char nom[] , int jeuxSize);
 
 //2
 int list(Jeu jeux[], int nb_jeux);
