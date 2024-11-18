@@ -28,6 +28,11 @@ int main() {
     strcpy(simualteOp.NomJeu, "GancarskiSimulator3000");
     execute_demande(simualteOp);
 
+    DemandeOperation executeOp;
+    executeOp.CodeOp = 6;
+    strcpy(executeOp.NomJeu, "GancarskiSimulator3000");
+    execute_demande(executeOp);
+
     DemandeOperation deleteOp;
     deleteOp.CodeOp = 4;
     strcpy(deleteOp.NomJeu, "GancarskiSimulator3000");

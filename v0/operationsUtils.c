@@ -49,13 +49,32 @@ int delete(Jeu jeux[], int * nb_jeux, char nom[]) {
     return size;
 }
 void simulate(Jeu jeux[], int nb_jeux, char nom[]) {
-    if (get_index(jeux, nb_jeux, nom) == -1) return;
+    int idx = get_index(jeux, nb_jeux, nom);
+    if (idx == -1) return;
+    char *memory = malloc(strlen(jeux[idx].Code) + 1);
+    strcpy(memory, jeux[idx].Code);
     sleep(20);
     if (rand() % 2 == 0) {
         printf("Le gagnant du Jeu %s est A.\n", nom);
     } else {
         printf("Le gagnant du Jeu %s est B.\n", nom);
     }
+    free(memory);
+}
+
+void execute(Jeu jeux[], int nb_jeux, char nom[]) {
+    int idx = get_index(jeux, nb_jeux, nom);
+    if (idx == -1) return;
+    char *memory = malloc(strlen(jeux[idx].Code) + 1);
+    strcpy(memory, jeux[idx].Code);
+    printf("En attente d'un evenement clavier");
+    getchar();
+    if (rand() % 2 == 0) {
+        printf("Le gagnant du Jeu %s est Serveur.\n", nom);
+    } else {
+        printf("Le gagnant du Jeu %s est Joueur.\n", nom);
+    }
+    free(memory);
 }
 
 int get_index(Jeu jeux[], int nb_jeux, char nom[]) {

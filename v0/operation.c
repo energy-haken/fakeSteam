@@ -23,7 +23,7 @@ int execute_demande(DemandeOperation op) {
             simulate(jeux, nb_jeux, op.NomJeu);
             return 0;
         case 6:
-            //execute(jeux, op.NomJeu);
+            execute(jeux, nb_jeux, op.NomJeu);
             return 0;
     }
     return -5;
