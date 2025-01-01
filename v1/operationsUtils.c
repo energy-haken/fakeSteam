@@ -32,6 +32,7 @@ int download(Jeu jeux[], int * nb_jeux, char nom[], char url[]) {
     printf("Downloading %s from %s...\n", nom, url);
     sleep(10);
     (*nb_jeux)++;
+    printf("Downloading %s from %s...DONE\n", nom, url);
     return r;
 }
 

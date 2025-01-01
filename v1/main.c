@@ -7,13 +7,20 @@
 
 int main() {
     srand(time(NULL)); 
-    printf("coucou\n");
     DemandeOperation dlOp;
     dlOp.CodeOp = 3;
+    dlOp.Flag = 0;
     strcpy(dlOp.NomJeu, "GancarskiSimulator3000");
     strcpy(dlOp.Param, "https://test.fr/");
     execute_demande(dlOp);
 
+    DemandeOperation dlOp2;
+    dlOp2.CodeOp = 3;
+    dlOp2.Flag = 0;
+    strcpy(dlOp2.NomJeu, "WemmertSimulator3000");
+    strcpy(dlOp2.Param, "https://test.fr/");
+    execute_demande(dlOp2);
+/*
     DemandeOperation listOp;
     listOp.CodeOp = 2;
     execute_demande(listOp);
@@ -41,6 +48,7 @@ int main() {
     DemandeOperation existsOp2;
     existsOp2.CodeOp = 1;
     strcpy(existsOp2.NomJeu, "GancarskiSimulator3000");
-    printf("exists ? %d\n", execute_demande(existsOp2));
+    printf("exists ? %d\n", execute_demande(existsOp2));*/
 
+    wait_for_pending_ops();
 }
