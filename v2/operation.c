@@ -9,9 +9,10 @@
 #include <signal.h>
 #include <stdbool.h>
 #include <fcntl.h> 
+#include <sys/mman.h>
 
 Jeu *jeux = NULL;
-int nb_jeux = 0;
+int *nb_jeux = NULL;
 int op_pipe[2];
 bool op_pipe_init = false;
 
@@ -22,12 +23,20 @@ void handle_sigalarm(int sig) {
     }
 }
 
-
-
 int execute_demande(DemandeOperation op) {
+    int shm_fd;
     if (jeux == NULL) {
-        jeux = malloc(20 * sizeof(Jeu));
+        // Créer et ouvrir un segment de mémoire partagée pour 'jeux'
+        shm_fd = shm_open("/jeux_shm", O_CREAT | O_RDWR, 0666);
+        ftruncate(shm_fd, 20 * sizeof(Jeu));
+        jeux = mmap(0, 20 * sizeof(Jeu), PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
         memset(jeux, 0, 20 * sizeof(Jeu));
+
+        // Créer et ouvrir un segment de mémoire partagée pour 'nb_jeux'
+        shm_fd = shm_open("/nb_jeux_shm", O_CREAT | O_RDWR, 0666);
+        ftruncate(shm_fd, sizeof(int));
+        nb_jeux = mmap(0, sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
+        *nb_jeux = 0;
     }
     if (!op_pipe_init) {
         pipe(op_pipe);
@@ -47,7 +56,7 @@ int execute_demande(DemandeOperation op) {
         // Processus enfant
         char *args[5];
         char code[1001];
-        int idx = get_index(jeux, nb_jeux, op.NomJeu);
+        int idx = get_index(jeux, *nb_jeux, op.NomJeu);
         if (idx != -1) {
             strcpy(code, jeux[idx].Code);
         } else {
@@ -97,11 +106,9 @@ int execute_demande(DemandeOperation op) {
         }
     }
     
-
     return -5; // Valeur de retour par défaut, ne devrait jamais être atteint
 }
 
 void wait_for_pending_ops() {
     while(wait(NULL) > 0);
-   
 }

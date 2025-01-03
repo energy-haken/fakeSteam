@@ -21,11 +21,15 @@ int main() {
     strcpy(dlOp2.Param, "https://test.fr/");
     execute_demande(dlOp2);
 
-    /*
-    DemandeOperation listOp;
-    listOp.CodeOp = 2;
-    execute_demande(listOp);
+    DemandeOperation dlOp3;
+    dlOp3.CodeOp = 3;
+    dlOp3.Flag = 0;
+    strcpy(dlOp3.NomJeu, "ZimmermanSimulator3000");
+    strcpy(dlOp3.Param, "https://test.fr/");
+    execute_demande(dlOp3);
     
+    
+    /*
     DemandeOperation existsOp;
     existsOp.CodeOp = 1;
     strcpy(existsOp.NomJeu, "GancarskiSimulator3000");
@@ -50,6 +54,11 @@ int main() {
     existsOp2.CodeOp = 1;
     strcpy(existsOp2.NomJeu, "GancarskiSimulator3000");
     printf("exists ? %d\n", execute_demande(existsOp2)); */
-
+    
+    
     wait_for_pending_ops();
+
+    DemandeOperation listOp;
+    listOp.CodeOp = 2;
+    execute_demande(listOp);
 }
