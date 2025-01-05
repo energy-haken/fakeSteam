@@ -28,11 +28,13 @@ int download(Jeu jeux[], int * nb_jeux, char nom[], char url[]) {
     code[r] = '\0';
     strcpy(new_game.NomJeu, nom);
     strcpy(new_game.Code, code);
+    (*nb_jeux)++;
     jeux[*nb_jeux] = new_game;
     printf("Downloading %s from %s...\n", nom, url);
     sleep(10);
-    (*nb_jeux)++;
+    
     printf("Downloading %s from %s...DONE\n", nom, url);
+   
     return r;
 }
 

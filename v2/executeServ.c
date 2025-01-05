@@ -17,7 +17,8 @@ int main(int argc, char *argv[]) {
     shm_fd = shm_open("/nb_jeux_shm", O_RDWR, 0666);
     int *nb_jeux = mmap(0, sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
 
-    strcpy(jeux[0].Code, argv[3]);
+
     execute(jeux, *nb_jeux, argv[2]);
+
     return 0;
 }

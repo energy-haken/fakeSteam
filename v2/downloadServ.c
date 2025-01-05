@@ -17,6 +17,12 @@ int main(int argc, char *argv[]) {
     shm_fd = shm_open("/nb_jeux_shm", O_RDWR, 0666);
     int *nb_jeux = mmap(0, sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
 
+    
+
+    // Télécharger le jeu et mettre à jour 'nb_jeux'
     download(jeux, nb_jeux, argv[1], argv[2]);
+
+    
+
     return 0;
 }
