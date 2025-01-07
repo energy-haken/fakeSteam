@@ -20,8 +20,9 @@ int main() {
     strcpy(dlOp2.NomJeu, "WemmertSimulator3000");
     strcpy(dlOp2.Param, "https://test.fr/");
     execute_demande(dlOp2);
-    
+
     wait_for_pending_ops();
+    
     DemandeOperation listOp;
     listOp.CodeOp = 2;
     dlOp2.Flag = 1;

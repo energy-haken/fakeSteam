@@ -1,15 +1,5 @@
 #include "operation.h"
-#include <stddef.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/types.h>
-#include <unistd.h>
-#include <sys/wait.h>
-#include <stdio.h>
-#include <signal.h>
-#include <stdbool.h>
-#include <fcntl.h> 
-#include <sys/mman.h>
+#include "common.h"
 
 Jeu *jeux = NULL;
 int* nb_jeux = NULL;
@@ -42,7 +32,7 @@ void init_global_vars() {
 
 int execute_demande(DemandeOperation op) {
     init_global_vars();
-    
+
     pid_t pid = fork();
     
     if (pid < 0) {
