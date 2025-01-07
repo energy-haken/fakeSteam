@@ -1,9 +1,5 @@
 #include "operationsUtils.h"
-#include <string.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <string.h>
+#include "common.h"
 
 int exists(Jeu jeux[], int nb_jeux, char nom[]){
     if (get_index(jeux, nb_jeux, nom) == -1) return 1;
@@ -20,7 +16,9 @@ int list(Jeu jeux[], int nb_jeux){
 
 int download(Jeu jeux[], int * nb_jeux, char nom[], char url[]) {
     Jeu new_game;
-    int r = rand() % 1000;
+    unsigned int r;
+    getrandom(&r, sizeof(r), GRND_NONBLOCK);
+    r %= 1000;
     char code[1001];
     for (int i = 0; i < r; i++) {
         code[i] = '*';

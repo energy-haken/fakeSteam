@@ -1,12 +1,9 @@
 #include <stdio.h>
 #include "structures.h"
 #include "operation.h"
-#include <string.h>
-#include <stdlib.h>
-#include <time.h>
+#include "common.h"
 
 int main() {
-    srand(time(NULL)); 
     DemandeOperation dlOp;
     dlOp.CodeOp = 3;
     dlOp.Flag = 0;
