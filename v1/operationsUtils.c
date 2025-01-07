@@ -10,8 +10,9 @@ int exists(Jeu jeux[], int nb_jeux, char nom[]){
     return 0;
 }
 int list(Jeu jeux[], int nb_jeux){
+    
     sleep(1);
-    printf("Listing available game:\n");
+    printf("Listing %d available game:\n", nb_jeux);
     for(int i = 0 ; i < nb_jeux ; i++){
         printf("%s (%lukB)\n", jeux[i].NomJeu, strlen(jeux[i].Code));
     }
@@ -29,9 +30,9 @@ int download(Jeu jeux[], int * nb_jeux, char nom[], char url[]) {
     strcpy(new_game.NomJeu, nom);
     strcpy(new_game.Code, code);
     jeux[*nb_jeux] = new_game;
+    (*nb_jeux)++;
     printf("Downloading %s from %s...\n", nom, url);
     sleep(10);
-    (*nb_jeux)++;
     printf("Downloading %s from %s...DONE\n", nom, url);
     return r;
 }

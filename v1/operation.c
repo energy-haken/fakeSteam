@@ -9,30 +9,39 @@
 #include <signal.h>
 #include <stdbool.h>
 #include <fcntl.h> 
+#include <sys/mman.h>
 
 Jeu *jeux = NULL;
-int nb_jeux = 0;
-int op_pipe[2];
+int* nb_jeux = NULL;
+int op_pipe[2] = {-1, -1};
 bool op_pipe_init = false;
 
 void handle_sigalarm(int sig) {
     int message[2];
     while(read(op_pipe[0], message, sizeof(message)) > 0) {
-        printf("[Operation Manager] Fork #%d exited with code %d\n", message[0], message[1]);        
+        printf("[Operation Manager] Fork #%d exited with code %d\n", message[0], message[1]);
     }
 }
 
-int execute_demande(DemandeOperation op) {
+void init_global_vars() {
     if (jeux == NULL) {
-        jeux = malloc(20 * sizeof(Jeu));
+        jeux = mmap(NULL, 20* sizeof(Jeu), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
         memset(jeux, 0, 20 * sizeof(Jeu));
     }
-    if (!op_pipe_init) {
+    if (nb_jeux == NULL) {
+        nb_jeux = mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+        *nb_jeux = 0;
+    }
+    if (op_pipe[0] == -1 && op_pipe[1] == -1) {
         pipe(op_pipe);
         fcntl(op_pipe[0], F_SETFL, O_NONBLOCK); 
         op_pipe_init = true;
         signal(SIGALRM, handle_sigalarm);
     }
+}
+
+int execute_demande(DemandeOperation op) {
+    init_global_vars();
     
     pid_t pid = fork();
     
@@ -46,23 +55,23 @@ int execute_demande(DemandeOperation op) {
         int result = -5;
         switch (op.CodeOp) {
             case 1: 
-                result = exists(jeux, nb_jeux, op.NomJeu);
+                result = exists(jeux, *nb_jeux, op.NomJeu);
                 break;
             case 2:
-                result = list(jeux, nb_jeux);
+                result = list(jeux, *nb_jeux);
                 break;
             case 3:
-                result = download(jeux, &nb_jeux, op.NomJeu, op.Param);
+                result = download(jeux, nb_jeux, op.NomJeu, op.Param);
                 break;
             case 4:
-                result = delete(jeux, &nb_jeux, op.NomJeu);
+                result = delete(jeux, nb_jeux, op.NomJeu);
                 break;
             case 5:
-                simulate(jeux, nb_jeux, op.NomJeu);
+                simulate(jeux, *nb_jeux, op.NomJeu);
                 result = 0;
                 break;
             case 6:
-                execute(jeux, nb_jeux, op.NomJeu);
+                execute(jeux, *nb_jeux, op.NomJeu);
                 result = 0;
                 break;
         }
