@@ -47,6 +47,9 @@ Cette fonction est d'ailleurs pratiquement obligatoire à la fin du lancement de
 
 > Afin de partager le tableau de jeu et sa taille, nous avons utilisé `mmap()` en mode `MAP_ANONYMOUS|MAP_SHARED` pour que ces deux zones soient accessibles par le processus principal et ses enfants.
 
+> Bien que l'utilisation de pthreads (threads POSIX) aurait pu être envisagée, dans ce cas particulier, cela n'est pas nécessaire.
+> En effet, les processus créés par fork fonctionnent de manière "isolée", et **aucune page mémoire partagée n'est modifiée** en dehors de celles qui sont explicitement mappées en mode partagé avec mmap.
+> En pratique, cela signifie que le processus n'est pas copié en memoire, les pages restent partagées. C'est le principe de **copy-on-write**.
 
 ## V2
 Pour lancer une opération, il suffit d'instancier la structure `DemandeOperation`, de remplir ses champs adéquatement, puis de lancer l'exécution de la demande.
