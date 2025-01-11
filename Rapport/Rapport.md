@@ -90,11 +90,11 @@ GDBMP (Game Data Base Management Protocol) est un protocole simple basé sur TCP
 
 Le serveur répond alors, soit avec les informations demandées, soit avec un code d'erreur.
 
-| Erreurs             | Commentaires                                                 |
-|---------------------|--------------------------------------------------------------|
-| no_such_operation   | L'opération demandée n'existe pas, vérifiez la requête.      |
-| no_such_game        | Le jeu demandé n'existe pas.                                 |
-| game_already_exists | Un jeu du même nom existe déja.                              |
+| Erreurs             | Commentaires                                            |
+|---------------------|---------------------------------------------------------|
+| no_such_operation   | L'opération demandée n'existe pas, vérifiez la requête. |
+| no_such_game        | Le jeu demandé n'existe pas.                            |
+| game_already_exists | Un jeu du même nom existe déja.                         |
 
 > Il n'incombe pas au serveur de base de données de télécharger le jeu à partir du web. L'architecture proposée implique que le jeu doit être téléchargé par le client, puis envoyé au serveur de base de données.
 
