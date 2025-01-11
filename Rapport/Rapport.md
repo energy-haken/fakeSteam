@@ -92,13 +92,13 @@ Le serveur répond alors, soit avec les informations demandées, soit avec un co
 
 | Erreurs             | Commentaires                                                 |
 |---------------------|--------------------------------------------------------------|
+| no_such_operation   | L'opération demandée n'existe pas, vérifiez la requête.      |
 | no_such_game        | Le jeu demandé n'existe pas.                                 |
 | game_already_exists | Un jeu du même nom existe déja.                              |
 
 > Il n'incombe pas au serveur de base de données de télécharger le jeu à partir du web. L'architecture proposée implique que le jeu doit être téléchargé par le client, puis envoyé au serveur de base de données.
 
-Des clients de démonstration ont été développés pour fournir des exemples. Ces exemples ne sont pas conçus pour une utilisation réelle du serveur, mais montrent simplement les capacités disponibles.
-
+Des clients de démonstration ont été développés pour fournir des exemples.
   
 ## Conclusion
 Nous estimons avoir atteint **99% de la finalité du projet**. Aucun aspect n'a, en tout cas, été volontairement ignoré.  
