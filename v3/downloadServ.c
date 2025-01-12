@@ -78,6 +78,7 @@ int main(int argc, char *argv[]) {
     // Lecture de la réponse
     read(sock, response_buffer, BUFFER_SIZE);
 
+    // Messages selon la réponse du serv
     if (strcmp(response_buffer, "success") == 0) {
             sleep(10);
             printf("Sending to server...DONE\n");

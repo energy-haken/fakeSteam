@@ -55,8 +55,14 @@ int main(int argc, char *argv[]) {
     // Envoi de la requête "exists" au serveur
     sprintf(buffer, "exists:%s", argv[1]);
     printf("Sending to server...\n");
-    send(sock, buffer, strlen(buffer), 0);
     sleep(1);
+
+    if (send(sock, buffer, strlen(buffer), 0) < 0) {
+        close(sock);
+        sleep(1);
+        printf("Sending to server...FAILED\n");
+        return -1;
+    }
     printf("Sending to server...DONE\n");
 
     // Initialisation du buffer pour la réponse du serv
@@ -64,8 +70,14 @@ int main(int argc, char *argv[]) {
 
     // Lecture de la réponse
     read(sock, response_buffer, BUFFER_SIZE);
+    sleep(1);
 
-    printf("Game existence check:\n%s\n", response_buffer);
+    // Message selon la réponse
+    if (strcmp(response_buffer, "true") == 0) {
+        printf("The game '%s' exists.\n", argv[1]);
+    } else {
+        printf("The game '%s' does not exist.\n", argv[1]);
+    }
 
     close(sock);
     return 0;

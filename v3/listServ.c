@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
     hints.ai_family = AF_UNSPEC;  // IPv4 ou IPv6
     hints.ai_socktype = SOCK_STREAM; // TCP
 
-    // Adresse du serv
+    // Adresse du serveur
     if (getaddrinfo("127.0.0.1", PORT, &hints, &res) != 0) {
         fprintf(stderr, "getaddrinfo failed\n");
         return -1;
@@ -52,20 +52,47 @@ int main(int argc, char *argv[]) {
 
     freeaddrinfo(res);
 
-    // Envoi de la requête "list" au serveur
-    sprintf(buffer, "list:");
-    printf("Sending to server...\n");
-    send(sock, buffer, strlen(buffer), 0);
+    // Envoi de la requête "count" au serveur
+    sprintf(buffer, "count:");
+    printf("Sending count request to server...\n");
     sleep(1);
-    printf("Sending to server...DONE\n");
-    // Initialisation du buffer pour la réponse du serv
+    if (send(sock, buffer, strlen(buffer), 0) < 0) {
+        close(sock);
+        printf("Sending count request to server...FAILED\n");
+        return -1;
+    }
+    printf("Sending count request to server...DONE\n");
+
+    // Initialisation du buffer pour la réponse du serveur
     memset(response_buffer, 0, sizeof(response_buffer));
 
     // Lecture de la réponse
     read(sock, response_buffer, BUFFER_SIZE);
+    int game_count = atoi(response_buffer);
 
-    printf("List of games:\n%s\n", response_buffer);
-    
+    if (game_count == 0) {
+        printf("No games available\n");
+    } else {
+        // Envoi de la requête "list" au serveur
+        sprintf(buffer, "list:");
+        printf("Sending list request to server...\n");
+        sleep(1);
+        
+        if (send(sock, buffer, strlen(buffer), 0) < 0) {
+            close(sock);
+            printf("Sending list request to server...FAILED\n");
+            return -1;
+        }
+
+        printf("Sending count request to server...DONE\n");
+        // Initialisation du buffer pour la réponse du serveur
+        memset(response_buffer, 0, sizeof(response_buffer));
+
+        // Lecture de la réponse
+        read(sock, response_buffer, BUFFER_SIZE);
+
+        printf("List of games:\n%s\n", response_buffer);
+    }
 
     close(sock);
     return 0;

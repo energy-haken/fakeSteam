@@ -53,19 +53,28 @@ int main(int argc, char *argv[]) {
     // Envoi de la requête "get" au serveur
     sprintf(buffer, "get:%s", argv[1]);
     printf("Sending to server...\n");
-    send(sock, buffer, strlen(buffer), 0);
 
-    // Initialisation du buffer pour la réponse du serveur
+    // Envoie au serveur la requete
+    if (send(sock, buffer, strlen(buffer), 0) < 0) {
+        close(sock);
+        sleep(1);
+        printf("Sending to server...FAILED\n");
+        return -1;
+    }
+
+    // Initialisation du buffer pour la réponse du serv
     memset(response_buffer, 0, sizeof(response_buffer));
 
     // Lecture de la réponse
     read(sock, response_buffer, BUFFER_SIZE);
+    sleep(1);
+    printf("Sending to server...DONE\n");
+    sleep(1);
 
+    // Messages/Actions selon la réponse du serv
     if (strcmp(response_buffer, "no_such_game") == 0) {
         printf("Game '%s' not found on the server.\n", argv[1]);
     } else {
-        printf("Sending to server...DONE");
-
         // Exécution du code du jeu
         printf("Executing game '%s'...\n", argv[1]);
         char *memory = malloc(strlen(response_buffer) + 1);

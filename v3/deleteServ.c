@@ -55,19 +55,29 @@ int main(int argc, char *argv[]) {
     // Envoi de la requête "delete" au serveur
     sprintf(buffer, "delete:%s", argv[1]);
     printf("Sending to server...\n");
-    send(sock, buffer, strlen(buffer), 0);
+
+    // Envoi la requete au serveur
+    if (send(sock, buffer, strlen(buffer), 0) < 0) {
+        close(sock);
+        sleep(1);
+        printf("Sending to server...FAILED\n");
+        return -1;
+    }
 
     // Initialisation du buffer pour la réponse du serv
     memset(response_buffer, 0, sizeof(response_buffer));
 
     // Lecture de la réponse
     read(sock, response_buffer, BUFFER_SIZE);
+    sleep(1);
 
+    // Affichage de messages en fonction de la réponse du serv
     if (strcmp(response_buffer, "success") == 0) {
         printf("Sending to server...DONE\n");
+        sleep(1);
         printf("Delete game...DONE\n");
     } else {
-        printf("Sending to server...FAILED\n");
+        printf("Delete game...FAILED\n");
     }
 
     close(sock);
