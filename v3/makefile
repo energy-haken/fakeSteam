@@ -4,7 +4,7 @@ BUILD_DIR ?= ./build
 TARGET_DIR ?= ./bin
 SRC_DIRS ?= .
 
-SRCS := $(shell find $(SRC_DIRS) -name "*.c" -not -name "list.c" -not -name "download.c")
+SRCS := $(shell find $(SRC_DIRS) -name "*.c" -not -name "listServ.c" -not -name "downloadServ.c" -not -name "executeServ.c" -not -name "existsServ.c" -not -name "deleteServ.c")
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
 DEPS := $(OBJS:.o=.d)
 
@@ -31,7 +31,7 @@ clean:
 MKDIR_P ?= mkdir -p
 
 # Specialized servers
-SERVERS := list download
+SERVERS := listServ downloadServ executeServ deleteServ existsServ
 
 SERVER_SRCS := operationsUtils.c
 SERVER_OBJS := $(SERVER_SRCS:%=$(BUILD_DIR)/%.o)

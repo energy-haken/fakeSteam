@@ -56,6 +56,7 @@ int main(int argc, char *argv[]) {
     sprintf(buffer, "exists:%s", argv[1]);
     printf("Sending to server...\n");
     send(sock, buffer, strlen(buffer), 0);
+    sleep(1);
     printf("Sending to server...DONE\n");
 
     // Initialisation du buffer pour la réponse du serv

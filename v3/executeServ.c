@@ -6,6 +6,7 @@
 #include "common.h"
 #include "structures.h"
 #include "operationsUtils.h"
+#include <netdb.h>
 
 #define PORT "8080"
 #define BUFFER_SIZE 1024
@@ -51,7 +52,7 @@ int main(int argc, char *argv[]) {
 
     // Envoi de la requête "get" au serveur
     sprintf(buffer, "get:%s", argv[1]);
-    printf("Sending get request for game '%s' to server...\n", argv[1]);
+    printf("Sending to server...\n");
     send(sock, buffer, strlen(buffer), 0);
 
     // Initialisation du buffer pour la réponse du serveur
@@ -63,7 +64,7 @@ int main(int argc, char *argv[]) {
     if (strcmp(response_buffer, "no_such_game") == 0) {
         printf("Game '%s' not found on the server.\n", argv[1]);
     } else {
-        printf("Received game code for '%s':\n%s\n", argv[1], response_buffer);
+        printf("Sending to server...DONE");
 
         // Exécution du code du jeu
         printf("Executing game '%s'...\n", argv[1]);
