@@ -72,7 +72,11 @@ Pour ce faire, nous avons procédé comme suit :
 ## V3
 
 La V3 est un véritable tournant dans notre façon de travailler. Une nouvelle brique a dû être introduite : un serveur de base de données. Servant de concentrateur de données (Nom et Code) pour les jeux.
-Il ne peut effectuer que quelques actions : Lister, Vérifier l'existence, Envoyer le code et Recevoir un nouveau jeu. Toutes les requêtes sont parallélisées.
+En effet, aucune autre architecture ne permet à chaque « brique » d'être exécutée sur des machines éventuellement différentes. La mémoire ne pouvant être partagée* entre plusieurs machines sur le réseau, un « concentrateur » nous semble être une nécessité. Une autre approche aurait été une architecture de type MQTT avec un courtier central et des serveurs périphériques s'abonnant à des canaux d'événements, mais un SSOT aurait été nécessaire de toute façon.
+Il ne peut effectuer que quelques actions : Lister, Vérifier l'existence, Envoyer le code et Recevoir un nouveau jeu. Toutes les requêtes sont parallélisées.  
+_*(sauf avec un partage NFS d'un montage TMPFS, mais cela ajoute un SPF non redondant et un niveau de complexité hors du spectre de ce SAE.)_
+
+
 GDBMP (Game Data Base Management Protocol) est un protocole simple basé sur TCP pour envoyer une requête et tous les arguments nécessaires.
 
 | Requete | Argument                       | Erreurs             | Commentaires                                                      |
@@ -86,16 +90,17 @@ GDBMP (Game Data Base Management Protocol) est un protocole simple basé sur TCP
 
 Le serveur répond alors, soit avec les informations demandées, soit avec un code d'erreur.
 
-| Erreurs             | Commentaires                                                 |
-|---------------------|--------------------------------------------------------------|
-| no_such_game        | Le jeu demandé n'existe pas.                                 |
-| game_already_exists | Un jeu du même nom existe déja.                              |
+| Erreurs             | Commentaires                                            |
+|---------------------|---------------------------------------------------------|
+| no_such_operation   | L'opération demandée n'existe pas, vérifiez la requête. |
+| no_such_game        | Le jeu demandé n'existe pas.                            |
+| game_already_exists | Un jeu du même nom existe déja.                         |
 
 > Il n'incombe pas au serveur de base de données de télécharger le jeu à partir du web. L'architecture proposée implique que le jeu doit être téléchargé par le client, puis envoyé au serveur de base de données.
 
 Des clients de démonstration ont été développés pour fournir des exemples.
-
+  
 ## Conclusion
-Nous estimons avoir atteint **99% de la finalité du projet**. Aucun aspect n'a en tout cas été volontairement ignoré.  
+Nous estimons avoir atteint **99% de la finalité du projet**. Aucun aspect n'a, en tout cas, été volontairement ignoré.  
 Nous sommes satisfaits du résultat final, malgré le fait qu'au final aucune logique réelle concernant les jeux n'ait été implémentée.  
 L'utilisation de zones mémoire partagées a été un excellent complément de cours et c'est sans doute le point le plus intéressant de cette SAE.
