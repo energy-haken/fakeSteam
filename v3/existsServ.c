@@ -14,8 +14,8 @@
 #define BUFFER_SIZE 1024
 
 int main(int argc, char *argv[]) {
-    if (argc != 1) {
-        fprintf(stderr, "Usage: %s\n", argv[0]);
+    if (argc != 2) {
+        fprintf(stderr, "Usage: %s <NomJeu>\n", argv[0]);
         return 1;
     }
 
@@ -52,20 +52,19 @@ int main(int argc, char *argv[]) {
 
     freeaddrinfo(res);
 
-    // Envoi de la requête "list" au serveur
-    sprintf(buffer, "list:");
+    // Envoi de la requête "exists" au serveur
+    sprintf(buffer, "exists:%s", argv[1]);
     printf("Sending to server...\n");
     send(sock, buffer, strlen(buffer), 0);
-    sleep(1);
     printf("Sending to server...DONE\n");
+
     // Initialisation du buffer pour la réponse du serv
     memset(response_buffer, 0, sizeof(response_buffer));
 
     // Lecture de la réponse
     read(sock, response_buffer, BUFFER_SIZE);
 
-    printf("List of games:\n%s\n", response_buffer);
-    
+    printf("Game existence check:\n%s\n", response_buffer);
 
     close(sock);
     return 0;
