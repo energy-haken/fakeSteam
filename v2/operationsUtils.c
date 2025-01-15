@@ -8,7 +8,7 @@ int exists(Jeu jeux[], int nb_jeux, char nom[]){
 int list(Jeu jeux[], int nb_jeux){
     sleep(1);
     printf("Listing available game:\n");
-    for(int i = 0 ; i < nb_jeux ; i++){
+    for(int i = 1 ; i <= nb_jeux ; i++){
         printf("%s (%lukB)\n", jeux[i].NomJeu, strlen(jeux[i].Code));
     }
     return nb_jeux;
@@ -47,6 +47,7 @@ int delete(Jeu jeux[], int * nb_jeux, char nom[]) {
         jeux[i] = jeux[i + 1];
     }
     (*nb_jeux)--;
+    
     return size;
 }
 void simulate(Jeu jeux[], int nb_jeux, char nom[]) {
@@ -65,10 +66,13 @@ void simulate(Jeu jeux[], int nb_jeux, char nom[]) {
 
 void execute(Jeu jeux[], int nb_jeux, char nom[]) {
     int idx = get_index(jeux, nb_jeux, nom);
-    if (idx == -1) return;
+    if (idx == -1) {
+        printf("Jeu %s non trouve\n", nom);
+        return;
+    }
     char *memory = malloc(strlen(jeux[idx].Code) + 1);
     strcpy(memory, jeux[idx].Code);
-    printf("En attente d'un evenement clavier");
+    printf("En attente d'un evenement clavier \n");
     getchar();
     if (rand() % 2 == 0) {
         printf("Le gagnant du Jeu %s est Serveur.\n", nom);

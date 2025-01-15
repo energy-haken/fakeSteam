@@ -16,5 +16,7 @@ int main(int argc, char *argv[]) {
 
 
     int result = delete(jeux, nb_jeux, argv[2]);
+    
+    
     return result;
 }

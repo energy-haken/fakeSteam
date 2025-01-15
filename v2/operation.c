@@ -64,8 +64,8 @@ int execute_demande(DemandeOperation op) {
 
         switch (op.CodeOp) {
             case 1: 
-                execv("./bin/existsServ", args);
-                break;
+                return execv("./bin/existsServ", args);
+                
             case 2:
                 execv("./bin/listServ", args);
                 break;
@@ -73,8 +73,8 @@ int execute_demande(DemandeOperation op) {
                 execv("./bin/downloadServ", args);
                 break;
             case 4:
-                execv("./bin/deleteServ", args);
-                break;
+                return execv("./bin/deleteServ", args);
+                
             case 5:
                 execv("./bin/simulateServ", args);
                 break;

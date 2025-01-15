@@ -13,7 +13,8 @@ int main(int argc, char *argv[]) {
     // Ouvrir le segment de mémoire partagée pour 'nb_jeux'
     shm_fd = shm_open("/nb_jeux_shm", O_RDWR, 0666);
     int *nb_jeux = mmap(0, sizeof(int), PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
-
+    
+    
     list(jeux, *nb_jeux);
     return 0;
 }

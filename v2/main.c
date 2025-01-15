@@ -26,36 +26,57 @@ int main() {
     execute_demande(dlOp3);
     
     
-    /*
+    
+    
+    
+    
+    wait_for_pending_ops();
+
+   
+   
+
+    printf("list \n");
+
+    DemandeOperation listOp;
+    listOp.CodeOp = 2;
+    execute_demande(listOp);
+
+    printf("execute Wemmert\n");
+    DemandeOperation executeOp;
+    executeOp.CodeOp = 6;
+    strcpy(executeOp.NomJeu, "WemmertSimulator3000");
+    execute_demande(executeOp);
+
+    printf("exist \n");
     DemandeOperation existsOp;
     existsOp.CodeOp = 1;
     strcpy(existsOp.NomJeu, "GancarskiSimulator3000");
     printf("exists ? %d\n", execute_demande(existsOp));
 
+    printf("simulate \n");
     DemandeOperation simualteOp;
     simualteOp.CodeOp = 5;
     strcpy(simualteOp.NomJeu, "GancarskiSimulator3000");
     execute_demande(simualteOp);
 
-    DemandeOperation executeOp;
-    executeOp.CodeOp = 6;
-    strcpy(executeOp.NomJeu, "GancarskiSimulator3000");
-    execute_demande(executeOp);
+    
 
+   /*
+    printf("delete Ganzarski \n");
     DemandeOperation deleteOp;
     deleteOp.CodeOp = 4;
     strcpy(deleteOp.NomJeu, "GancarskiSimulator3000");
     printf("delete success ? %d\n", execute_demande(deleteOp));
-
+    
+    printf("exist \n");
     DemandeOperation existsOp2;
     existsOp2.CodeOp = 1;
     strcpy(existsOp2.NomJeu, "GancarskiSimulator3000");
-    printf("exists ? %d\n", execute_demande(existsOp2)); */
-    
-    
-    wait_for_pending_ops();
+    printf("exists ? %d\n", execute_demande(existsOp2)); 
 
-    DemandeOperation listOp;
-    listOp.CodeOp = 2;
-    execute_demande(listOp);
+    printf("list \n");
+    DemandeOperation listOp2;
+    listOp2.CodeOp = 2;
+    execute_demande(listOp2);
+    */
 }
