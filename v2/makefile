@@ -1,4 +1,4 @@
-TARGET_EXEC ?= v1
+TARGET_EXEC ?= v2
 CC := clang
 BUILD_DIR ?= ./build
 TARGET_DIR ?= ./bin
